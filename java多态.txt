@@ -1,0 +1,59 @@
+面向对象之多态
+
+多态就是对象的多种形态，具体有：
+
+1.引用时的多态：
+
+①父类的引用可以指向己类的对象
+②父类的引用可以指向子类的对象
+
+2.方法多态
+
+①创建本类对象时，调用的方法时本类自己的方法
+②创建子类对象时，调用的方法为子类重写的方法或者继承的方法
+
+引用类型转换：
+
+1.向上类型转换（小--->大）：
+
+自动转换；
+
+2.向下类型转换（大--->小）：
+
+强制类型转换
+
+代码例子：
+
+class Dog{//创建一个Dog类为父类
+	
+	public void eat(){
+		System.out.println("吃动西");
+	}
+}
+class ErHa extends Dog{//创建一个ErHa类继承Dog类
+	public void eat(){
+		System.out.println("吃骨头");//重写父类的方法eat();
+	}
+}
+class TaiDi extends Dog{
+	public void eat(){
+		System.out.println("吃狗粮");//重写父类方法eat();
+	}
+}
+public class Demo{
+	public static void main(String[] args){
+
+		//引用时多态；
+
+		Dog erha = new ErHa();//创建子类ErHa对象；
+
+		Dog taidi = new TaiDi();//创建子类TaiDi对象；
+
+		//方法多态；
+		
+		erha.eat()//调用ErHa类的方法eat();
+		
+		taidi.eat()//调用TaiDi类的方法eat();
+		
+	}
+}
