@@ -1,0 +1,63 @@
+<html>
+<body>
+<p>
+//创建服务器端，服务器端先启动
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.*;
+
+public class ObjectServer {
+	public static void main(String[] args){
+		ServerSocket ser = null;
+		Socket soc = null;
+		try{
+    //新建服务器端口
+			ser = new ServerSocket(20001);
+			System.out.println("服务器启动");
+			soc = ser.accept();//获取对象输入流
+			ObjectInputStream oin = new ObjectInputStream(soc.getInputStream());
+			DuiXiang s = (DuiXiang)oin.readObject();
+			System.out.println("客户端发来消息"+s);
+			ObjectOutputStream out = new ObjectOutputStream(soc.getOutputStream());//获取对象输出流
+			out.writeObject(s);
+			out.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}
+
+//创建客户端
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+public class ObjectClient {
+
+	public static void main(String[] args) {
+		Socket soc = null;
+		try {
+			soc = new Socket("192.168.199.154",20001);
+			OutputStream out = soc.getOutputStream();
+			ObjectOutputStream os = new ObjectOutputStream(out);
+			os.writeObject(new DuiXiang("徐松峻",18));
+			
+			ObjectInputStream oi = new ObjectInputStream(soc.getInputStream());
+			DuiXiang dx = (DuiXiang) oi.readObject();
+			System.out.println(dx);
+			
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+}
+通过上面的两个类，我们就可以简单的通过客户端传输一个对象给服务器端
+</p>
+</body>
+</html>
