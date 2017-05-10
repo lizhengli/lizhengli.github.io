@@ -1,0 +1,184 @@
+java 通过ServerSocket 和 Socket 之间可以实现tcp/udp协议；
+
+首先启动服务器，客户端在随之启动；
+
+//创建客户端
+import java.awt.Frame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.Scanner;
+
+import javax.swing.*;
+
+import java.net.*;
+public class ZijieKeHu implements Runnable {
+	public static void main(String[] args){
+		Scanner sc = new Scanner(System.in);
+				try {
+				Socket	soc = new Socket("192.168.199.154",11000);
+					System.out.println("是否连接成功"+soc.isConnected());
+					PrintWriter pw = new PrintWriter(soc.getOutputStream());
+					pw.write("游艇666\n");
+					pw.flush();
+					//发消息
+					new Thread(new OutRunnable(soc)).start();
+					//接收服务器返回消息	
+					new Thread(new InRunnable(soc)).start();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+          }
+}
+
+//创建服务器
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.*;
+import java.util.*;
+
+public class ZiFuLiu {
+	public static void main(String[] args){
+	
+		ServerSocket ses = null;
+		Socket so = null;
+		List<Socket> list = new ArrayList<Socket>();
+		Map<String,Socket> socketMap = new HashMap<String,Socket>();
+		try{
+			ses = new ServerSocket(11000);
+			
+			System.out.println("服务器启动");
+			
+			while(true){
+				so = ses.accept();
+				BufferedReader bfr = new BufferedReader(new InputStreamReader(so.getInputStream()));
+				String name = bfr.readLine();
+				socketMap.put(name,so);
+				list.add(so);
+				new Thread(new ClieRunnable(so,list,socketMap)).start();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+}
+
+//创建服务器所需的线程类
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.*;
+
+public class ClieRunnable implements Runnable {
+	Socket soc = null;
+	List<Socket> sockets;
+	Map<String,Socket> socketHashMap = new HashMap<String,Socket>();
+	public ClieRunnable(Socket soc,List<Socket> sockets,Map<String,Socket> socketHashMap){
+		this.soc = soc;
+		this.sockets = sockets;
+		this.socketHashMap = socketHashMap;
+	}
+	public void run(){
+		PrintWriter pw = null;
+		while(true){
+			try {
+				pw = new PrintWriter(soc.getOutputStream());
+				BufferedReader buf = new BufferedReader(new InputStreamReader(soc.getInputStream()));
+				String xiaoxi;
+				xiaoxi = buf.readLine();
+				System.out.println("正在接受客户端数据");
+				System.out.println("客户端发送消息为："+xiaoxi);
+				String name="";
+				String fh = "";
+				Set<String> keys = socketHashMap.keySet(); 
+				for(String s:keys){
+					Socket socket = socketHashMap.get(s);
+					if(soc==socket){
+						name=s;
+						fh = name+"说："+xiaoxi;
+					}
+					pw.write(fh);
+				}
+				for(Socket socket1:sockets){
+					if(socket1.isConnected()){
+						pw = new PrintWriter(socket1.getOutputStream());
+						pw.write(fh+"\n");
+						pw.flush();
+					}else{
+						System.out.println("离线请留言");
+					}
+				}
+				System.out.println("服务器返回消息--->"+fh);
+				
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+		}
+	}
+
+}
+//创建客户端发送消息的线程类
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.util.*;
+public class OutRunnable implements Runnable {
+	Socket socket = null;
+	public void run(){
+		Scanner sc = new  Scanner(System.in);
+		try {
+			PrintWriter pw = null;
+			while(true){
+				System.out.println("请输入内容");
+				String strings = sc.next();
+				System.out.println("正在发送");
+				pw = new PrintWriter(socket.getOutputStream());
+				pw.write(strings+"\n");
+				pw.flush();
+			} 
+			
+		}catch (IOException e) {
+			e.printStackTrace();
+		}			
+	}
+	public OutRunnable(Socket socket){
+		
+		this.socket = socket;
+	}
+}
+
+//创建客户端接收消息打的线程类
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+
+public class InRunnable implements Runnable{
+	Socket socket = null;
+	public InRunnable(Socket socket){
+		this.socket = socket;
+	}
+	public void run(){
+		try {
+			while(true){
+				BufferedReader buf = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				String xiaoxi = buf.readLine();
+				
+				String s = "服务器返回"+xiaoxi;
+				System.out.println(s);
+			} 
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+}
+
+通过以上的代码，我们就可以实现服务器与客户端之间的群发了。
