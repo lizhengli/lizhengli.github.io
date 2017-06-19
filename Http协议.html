@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Http协议</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="dq1j" id="http协议">Http协议</h1><hr><div class="md-section-divider"></div><h2 data-anchor-id="q3f6" id="什么叫http协议">什么叫http协议？</h2><ul data-anchor-id="9iae">
+<li>用于定义客户端与web服务器通迅的格式。</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="7gx6" id="请求request">请求request</h2><p data-anchor-id="3mad">客户端连上服务器后，向服务器请求某个web资源，称之为客户端向服务器发送了一个HTTP请求。</p><p data-anchor-id="i4ai">一个请求行、若干请求头、以及实体内容，其中的一些消息头和实体内容都是可选的，消息头和实体内容之间要用空行隔开 <br>
+举例： <br>
+GET /books/java.html HTTP/1.1 <em>请求行</em> <br>
+请求消息头： <br>
+    Accept: <em>/</em> <br>
+    Accept-Language: en-us <br>
+    Connection: Keep-Alive <br>
+    Host: localhost <br>
+    Referer: <a href="http://localhost/links.asp" target="_blank">http://localhost/links.asp</a> <br>
+    User-Agent: Mozilla/4.0 <br>
+    Accept-Encoding: gzip, deflate <br>
+空行 <br>
+请求实体</p><p data-anchor-id="ujhd">请求行中的get称之为请求方式，同样还有一种请求方式为post</p><div class="md-section-divider"></div><h4 data-anchor-id="ufkj" id="不管post或get都用于向服务器请求某个web资源这两种方式的区别主要表现在数据传递上客户端通过这两种方式都可以带一些数据给服务器">　不管POST或GET，都用于向服务器请求某个WEB资源，这两种方式的区别主要表现在数据传递上，客户端通过这两种方式都可以带一些数据给服务器。</h4><div class="md-section-divider"></div><h2 data-anchor-id="172m" id="请求方式">请求方式</h2><ul data-anchor-id="20gc">
+<li>get： <br>
+    在URL地址后附带的参数是有限制的，其数据容量不能超过1K。 <br>
+    在地址后面用？号连接想要添加的数据 例如： <br>
+    GET /mail/1.html?name=abc&amp;password=xyz  <br>
+    这样就将name和password的值传输了进去</li>
+<li>post： <br>
+ 如请求方式为POST方式，则可以在请求的实体内容中向服务器发送数据。 <br>
+例如： <br>
+POST /servlet/ParamsServlet HTTP/1.1 <br>
+Host: <br>
+Content-Type: application/x-www-form-urlencoded <br>
+Content-Length: 28 <br>
+空行 <br>
+name=abc&amp;password=xyz 请求实体 <br>
+Post方式的特点：传送的数据量无限制。而且post请求方式不容易导致信息泄露。</li>
+</ul></div>
+</body>
+</html>

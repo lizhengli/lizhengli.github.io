@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>MVC开发模式</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="o2b9" id="mvc开发模式">MVC开发模式</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="wkir" id="简介">简介</h3><ul data-anchor-id="f5km">
+<li>MVC是一种开发模式，而软件开发当中还有设计模式</li>
+<li>m:model模型的意思(javaBean 对象类)</li>
+<li>v:view视图层(页面显示的内容：如JSP页面)</li>
+<li>c:controll控制层(接受用户的请求，并拿到数据模型并封装进数据并将数据模型转发给view层显示数据，并返回给客户端)</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="pmge" id="怎样将特定页面ｉｄｅａ中发布时第一个显示">　怎样将特定页面Ｉｄｅａ中发布时第一个显示？</h3><p data-anchor-id="kdws">这时候我们需要在ｗｅｂ－ｉｎｆｏ目录下的ｗｅｂ．ｘｍｌ文件中配置如下代码： <br>
+＜ｗｅｌｃｏｍ－ｆｉｌｅ－ｌｉｓｔ＞ <br>
+    ＜ｗｅｌｃｏｍ－ｆｉｌｅ＞页面＜／ｗｅｌｃｏｍ－ｆｉｌｅ＞ <br>
+＜ｗｅｌｃｏｍ－ｆｉｌｅ－ｌｉｓｔ＞</p><div class="md-section-divider"></div><h3 data-anchor-id="494d" id="配置ｘｍｌ">　配置ｘｍｌ：</h3><p data-anchor-id="gzl9">我们在编写一个应用程序后，如果想让服务器找到，这是我们就得在ｘｍｌ文件中配置一些我们文件的路径。</p><pre data-anchor-id="mqg8"><code>`&lt;servlet&gt;
+    &lt;servlet-name&gt;name&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;程序路径&lt;/servlet-class&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;name&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/dizhi&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+`
+</code></pre><div class="md-section-divider"></div><h3 data-anchor-id="yaan" id="mvc开发模式中需要建立的包">MVC开发模式中需要建立的包</h3><ul data-anchor-id="atuv">
+<li>建立一个bean包里面需要有m层的class <br>
+<ul><li>bean包里面存放的是内容实体</li></ul></li>
+<li>建立一个service里面需要有service接口和实现类 <br>
+<ul><li>service包里面存放的是业务逻辑部分</li></ul></li>
+<li>建立一个dao包里面需要创建一个dao接口和实现类 <br>
+<ul><li>dao包里面存放的是数据库的操作部分</li></ul></li>
+<li>其实service 和 dao 包都是从controller当中分离出来的两个包 <br>
+只是这样写就增加了应用程序的可维护性，增加了程序的拓展性。</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="rs58" id="mvc开发模式的时序">MVC开发模式的时序</h3><p data-anchor-id="r85f">1.客户端发送请求被服务器程序捕获 <br>
+ 2.controller转给service层 <br>
+ 3.service层传到dao层 <br>
+ 4.dao层拿到数据返回给service层 <br>
+ 5.service再返回给controller层 <br>
+ 6.m层将内容封装好转发给controller <br>
+ 7.controller再转发给view层加样式 <br>
+ 8.最后view层再显示给客户端</p><p data-anchor-id="r0m4">经过此八步的顺序服务器才会将内容房会给客户端</p></div>
+</body>
+</html>

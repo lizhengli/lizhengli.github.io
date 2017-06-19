@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>HttpServletRequest和HttpServletResponse</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="7ti0" id="httpservletrequest和httpservletresponse">HttpServletRequest和HttpServletResponse</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="fct1" id="httpservletrequest对象代表客户端的请求当客户端通过http协议访问服务器时http请求头中的所有信息都封装在这个对象中开发人员通过这个对象的方法可以获得客户这些信息">HttpServletRequest对象代表客户端的请求，当客户端通过HTTP协议访问服务器时，HTTP请求头中的所有信息都封装在这个对象中，开发人员通过这个对象的方法，可以获得客户这些信息。</h3><div class="md-section-divider"></div><h3 data-anchor-id="h41b" id="request和response对象代表请求和响应所以我们要获取客户机提交过来的数据只需要找request对象就行了要向客户机输出数据只需要找response对象就行了">request和response对象代表请求和响应，所以我们要获取客户机提交过来的数据，只需要找request对象就行了。要向客户机输出数据，只需要找response对象就行了。</h3><div class="md-section-divider"></div><h3 data-anchor-id="dsj7" id="request的常用方法">Request的常用方法</h3><ul data-anchor-id="c3ew">
+<li>getRequestURL方法返回客户端发出请求时的完整URL。</li>
+<li>getRequestURI方法返回请求行中的资源名部分</li>
+<li>getQueryString 方法返回请求行中的参数部分</li>
+<li>getPathInfo方法返回请求URL中的额外路径信息。额外路径信息是请求URL中的位于Servlet的路径之后和查询参数之前的内容，它以“/”开头。</li>
+<li>getRemoteAddr方法返回发出请求的客户机的IP地址</li>
+<li>getRemotePort方法返回客户机所使用的网络端口号</li>
+<li>getLocalAddr方法返回WEB服务器的IP地址</li>
+<li>getLocalName方法返回WEB服务器的主机名</li>
+<li>获得客户机请求头 <br>
+<ul><li>getHeader方法</li>
+<li>getHeaders方法</li>
+<li>getHeaderNames方法</li></ul></li>
+<li>获得客户机请求参数(客户端提交的数据) <br>
+<ul><li>getParameter方法</li>
+<li>getParameterValues（String name）方法</li>
+<li>getParameterNames方法</li>
+<li>getParameterMap方法 <br>
+Request可以还用来，获取浏览器类型、获取表单提交的内容等等</li></ul></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="tpqh" id="response">Response</h3><p data-anchor-id="e0se"><strong><em>Web服务器收到客户端的http请求，会针对每一次请求，分别创建一个用于代表请求的request对象、和代表响应的response对象。</em></strong></p><div class="md-section-divider"></div><h4 data-anchor-id="cpxm" id="一个http响应代表服务器向客户端回送的数据">一个HTTP响应代表服务器向客户端回送的数据</h4><div class="md-section-divider"></div><h4 data-anchor-id="ungx" id="状态行">状态行：</h4><ul data-anchor-id="x05c">
+<li>100～199：表示成功接收请求，要求客户端继续提交下一次请求才能完成整个处理过程</li>
+<li>200~299 ：表示成功接收请求并已完成整个处理过程，常用200</li>
+<li>300-399 ：为完成请求，客户需进一步细化请求。例如，请求的资源已经移动一个新地址，常用302、307和304</li>
+<li>400-499 ：客户端的请求有错误，常用404</li>
+<li>500-599 ：服务器端出现错误，常用 500</li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="v4s4" id="每次客户端请求都会创建一个新的请求对象同样的服务器每次响应也都会创建爱你个一个新的相应对象-new-instance">每次客户端请求都会创建一个新的请求对象，同样的服务器每次响应也都会创建爱你个一个新的相应对象 new instance</h2></div>
+</body>
+</html>
