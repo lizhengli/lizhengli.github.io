@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Servlet的开发入门</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="iw64" id="servlet的开发入门">Servlet的开发入门</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="sitg" id="servlet是sun公司提供的一门用于开发动态web资源的技术">Servlet是sun公司提供的一门用于开发动态web资源的技术。</h3><div class="md-section-divider"></div><h3 data-anchor-id="rtvk" id="sun公司在其api中提供了一个servlet接口用户若想使用java程序开发一个动态web资源只需编写一个servlet接口的实现类并把这个类部署到web服务器中就算开发好了一个动态web资源">Sun公司在其API中提供了一个servlet接口，用户若想使用Java程序开发一个动态web资源，只需编写一个servlet接口的实现类，并把这个类部署到web服务器中，就算开发好了一个动态web资源。</h3><div class="md-section-divider"></div><h3 data-anchor-id="swra" id="注意我们按照约定成俗的称呼习惯通常我们也把实现了servlet接口的java程序称之为servlet">注意：我们按照约定成俗的称呼习惯，通常我们也把实现了servlet接口的java程序，称之为Servlet。</h3><div class="md-section-divider"></div><h3 data-anchor-id="w1xk" id="应用程序的开发过程">　应用程序的开发过程:</h3><pre data-anchor-id="wq0u"><code>第一步：实现Servlet接口
+第二步：要在WEB-INF目录找web.xml文件，代码如下
+
+ &lt;servlet&gt;
+  &lt;servlet-name&gt;index&lt;/servlet-name&gt;
+  &lt;servlet-class&gt;com.test.IndexServlet&lt;/servlet-class&gt;
+  &lt;init-param&gt;
+      &lt;param-name&gt;classdebuginfo&lt;/param-name&gt;
+      &lt;param-value&gt;true&lt;/param-value&gt;
+  &lt;/init-param&gt;
+  &lt;load-on-startup&gt;1&lt;/load-on-startup&gt;
+&lt;/servlet&gt;
+&lt;servlet-mapping&gt;
+  &lt;servlet-name&gt;index&lt;/servlet-name&gt;
+  &lt;url-pattern&gt;/gaoxin&lt;/url-pattern&gt;
+  &lt;url-pattern&gt;/songjun&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+
+第三步：部署项目，相当于放到了webapps目录下面
+</code></pre><div class="md-section-divider"></div><h3 data-anchor-id="j7k5" id="servlet的生面周期">Servlet的生面周期</h3><ul data-anchor-id="7ikw">
+<li>页面第一次被访问时会执行init方法</li>
+<li>页面每一次被访问时都会执行一次service方法</li>
+<li>destory 在关闭服务器的时候调用</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="h4bf" id="继承httpservlet类">继承HttpServlet类</h3><ul data-anchor-id="1ixz">
+<li>我们所写的应用程序要继承HTTPServlet 覆写doGet doPost</li>
+<li>继承关系： <br>
+Servlet <br>
+| <br>
+GenericServlet <br>
+| <br>
+HttpServlet <br>
+| <br>
+我们自己写的类</li>
+</ul><p data-anchor-id="9n4m">关系为下面的继承上面的</p></div>
+</body>
+</html>

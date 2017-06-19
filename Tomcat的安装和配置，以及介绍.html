@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Tomcat的安装和配置，以及介绍</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="0gc9" id="tomcat的安装和配置以及介绍">Tomcat的安装和配置，以及介绍</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="i2uh" id="启动">启动</h3><ul data-anchor-id="76zu">
+<li>双击 bin 目录下的 startup.bat 文件</li>
+<li>输入 <a href="http://localhost:8080/" target="_blank">http://localhost:8080/</a>，显示如下界面代表安装成功</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="6mio" id="tomcat常见的启动问题">Tomcat常见的启动问题</h3><ul data-anchor-id="r4jg">
+<li><p>Java环境变量：</p>
+
+<ul><li>在windows中设置java_home环境变量</li>
+<li>只要在setclasspath.bat批处理文件第一次使用JAVA_HOME环境变量之前的任何地方，将JAVA_HOME环境变量设置为JDK的主目录，就可以使用startup.bat文件启动Tomcat了。</li></ul></li>
+<li><p>端口占用问题： <br>
+很多时候我们在发布内容的时候，忘记关闭上一次启动的服务器，这就造成了端口占用的问题</p></li>
+<li><p>Catalina_home环境变量的设置问题  </p></li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="007f" id="tomcat的目录结构">Tomcat的目录结构</h3><ul data-anchor-id="0pm9">
+<li>bin目录存放启动和关闭Tomcat的脚本文件</li>
+<li>conf目录存放 Tomcat 服务器的各种配置文件</li>
+<li>lib存放 Tomcat 服务器的支撑jar 包</li>
+<li>存放 Tomcat 的日志文件(<strong><em>这个目录也会存放你的错误日志，因此出现错误是可以到这个目录里面来找找</em></strong>)</li>
+<li>temp存放 Tomcat 运行时产生的临时文件</li>
+<li>webapps web应用所在目录，即供外界访问的web <br>
+资源的存放目录</li>
+<li>work omcat 的工作目录</li>
+</ul></div>
+</body>
+</html>
