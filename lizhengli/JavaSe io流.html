@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>JavaSe io流</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="vwim" id="javase-io流">JavaSe io流</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="gyz2" id="按照方向分为">按照方向分为：</h3><ul data-anchor-id="rnxa">
+<li>输入流（InputStream）</li>
+<li>输出流(OutputStream)</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="xh7l" id="按照处理方式不同">按照处理方式不同：</h3><ul data-anchor-id="7ape">
+<li>字符流(Reader)</li>
+<li>字节流(Writer)；</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="y4pn" id="inputstream-outputstream">InputStream OutputStream</h3><p data-anchor-id="vi2n">上面两个类是输入输出流的顶级类，其他类都是从这两个类继承产生的；</p><table data-anchor-id="wygh" class="table table-striped-white table-bordered">
+<thead>
+<tr>
+ <th>/</th>
+ <th style="text-align:right;">字节流</th>
+ <th style="text-align:center;">字符流</th>
+</tr>
+</thead>
+<tbody><tr>
+ <td>输入流</td>
+ <td style="text-align:right;">InputStream</td>
+ <td style="text-align:center;">Reader</td>
+</tr>
+<tr>
+ <td>输出流</td>
+ <td style="text-align:right;">InputStream</td>
+ <td style="text-align:center;">writer</td>
+</tr>
+</tbody></table><div class="md-section-divider"></div><h3 data-anchor-id="2spl" id="下面代码表示创建一个文件并向里面输入数据保存">下面代码表示创建一个文件并向里面输入数据保存：</h3><pre data-anchor-id="b4vn"><code>class Demo{
+</code></pre><p data-anchor-id="1k6b">public static void main(String[] args){ <br>
+    File f = new File("Test.txt"); <br>
+     if(!f.exists()){ <br>
+      try{ //抛出异常； <br>
+        f.createNewFile();//如果文件不存在那么就创建一个； <br>
+      } catch(IOException e){ <br>
+        e.printStackTrace(); <br>
+      } <br>
+    } <br>
+    FileReader fr = null; <br>
+    FileWriter fw = null; <br>
+    String strings = "hello world"; <br>
+    char[] chars = new char[1024];//缓冲区 <br>
+    int len = 0; <br>
+    try{ <br>
+      fr = new FileReader(f); <br>
+      StringBuffer snb = new StringBuffer(); <br>
+      while((len = fr.read(chars))!=-1){ //将源文件里的数据读入，避免覆盖 <br>
+        snb.append(new String(chars,0,len)); <br>
+        strings+=snb; <br>
+      } <br>
+      fw = new FileWriter(f); <br>
+      fw.write(strings);//将数据写出文件 <br>
+    }catch(IOException e){ <br>
+      e.printStackTrace(); <br>
+    }finally{ <br>
+      if(fr!=null){ <br>
+        try{ <br>
+          fr.close();//关闭输入流； <br>
+        }catch(IOException e){ <br>
+          e.printStackTrace(); <br>
+        } <br>
+      } <br>
+      if(fw!=null){ <br>
+        try{ <br>
+          fw.close();//关闭输出流； <br>
+        }catch(IOException e){ <br>
+          e.printStackTrace(); <br>
+        } <br>
+      } <br>
+    } <br>
+  } <br>
+}</p><div class="md-section-divider"></div><h3 data-anchor-id="1onz" id="简单了介绍了一下javase当中的io流">简单了介绍了一下JavaSE当中的io流。</h3></div>
+</body>
+</html>

@@ -1,0 +1,340 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>验证码的生成和判断</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="2k31" id="验证码的生成和判断">验证码的生成和判断</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="kmhz" id="在登陆一些网站的时候我们不仅要输入正确的账号和密码还要正确的输入验证码这篇文章讲的就是如何简单的生成验证码和验证是否正确">在登陆一些网站的时候我们不仅要输入正确的账号和密码，还要正确的输入验证码，这篇文章讲的就是如何简单的生成验证码和验证是否正确。</h3><div class="md-section-divider"></div><h3 data-anchor-id="qzjd" id="首先我们需要到网站上去下载一个别人写好的验证码生成器下面我就讲我下载的验证码生成器的源代码及注释拿出来">首先我们需要到网站上去下载一个别人写好的验证码生成器，下面我就讲我下载的验证码生成器的源代码及注释拿出来：</h3><p data-anchor-id="cupk">import java.awt.Color; <br>
+import java.awt.Font; <br>
+import java.awt.Graphics; <br>
+import java.awt.Graphics2D; <br>
+import java.awt.RenderingHints; <br>
+import java.awt.geom.AffineTransform; <br>
+import java.awt.image.BufferedImage; <br>
+import java.io.File; <br>
+import java.io.FileOutputStream; <br>
+import java.io.IOException; <br>
+import java.io.OutputStream; <br>
+import java.util.Arrays; <br>
+import java.util.Random;</p><p data-anchor-id="eaqq">import javax.imageio.ImageIO; <br>
+public class VerifyCodeUtils {</p><pre data-anchor-id="eidx"><code>/**
+ * &lt;p&gt;&lt;b&gt;VerifyCodeUtils Description:&lt;/b&gt; (验证码生成)&lt;/p&gt;
+ * &lt;b&gt;DATE:&lt;/b&gt; 2016年6月2日 下午3:53:34
+ */
+
+    //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
+    public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";
+    private static Random random = new Random();
+
+
+    /**
+     * 使用系统默认字符源生成验证码
+     * @param verifySize    验证码长度
+     * @return
+     */
+    public static String generateVerifyCode(int verifySize){
+        return generateVerifyCode(verifySize, VERIFY_CODES);
+    }
+    /**
+     * 使用指定源生成验证码
+     * @param verifySize    验证码长度
+     * @param sources   验证码字符源
+     * @return
+     */
+    public static String generateVerifyCode(int verifySize, String sources){
+        if(sources == null || sources.length() == 0){
+            sources = VERIFY_CODES;
+        }
+        int codesLen = sources.length();
+        Random rand = new Random(System.currentTimeMillis());
+        StringBuilder verifyCode = new StringBuilder(verifySize);
+        for(int i = 0; i &lt; verifySize; i++){
+            verifyCode.append(sources.charAt(rand.nextInt(codesLen-1)));
+        }
+        return verifyCode.toString();
+    }
+
+    /**
+     * 生成随机验证码文件,并返回验证码值
+     * @param w
+     * @param h
+     * @param outputFile
+     * @param verifySize
+     * @return
+     * @throws IOException
+     */
+    public static String outputVerifyImage(int w, int h, File outputFile, int verifySize) throws IOException{
+        String verifyCode = generateVerifyCode(verifySize);
+        outputImage(w, h, outputFile, verifyCode);
+        return verifyCode;
+    }
+
+    /**
+     * 输出随机验证码图片流,并返回验证码值
+     * @param w
+     * @param h
+     * @param os
+     * @param verifySize
+     * @return
+     * @throws IOException
+     */
+    public static String outputVerifyImage(int w, int h, OutputStream os, int verifySize) throws IOException{
+        String verifyCode = generateVerifyCode(verifySize);
+        outputImage(w, h, os, verifyCode);
+        return verifyCode;
+    }
+
+    /**
+     * 生成指定验证码图像文件
+     * @param w
+     * @param h
+     * @param outputFile
+     * @param code
+     * @throws IOException
+     */
+    public static void outputImage(int w, int h, File outputFile, String code) throws IOException{
+        if(outputFile == null){
+            return;
+        }
+        File dir = outputFile.getParentFile();
+        if(!dir.exists()){
+            dir.mkdirs();
+        }
+        try{
+            outputFile.createNewFile();
+            FileOutputStream fos = new FileOutputStream(outputFile);
+            outputImage(w, h, fos, code);
+            fos.close();
+        } catch(IOException e){
+            throw e;
+        }
+    }
+
+    /**
+     * 输出指定验证码图片流
+     * @param w
+     * @param h
+     * @param os
+     * @param code
+     * @throws IOException
+     */
+    public static void outputImage(int w, int h, OutputStream os, String code) throws IOException{
+        int verifySize = code.length();
+        BufferedImage image = new BufferedImage(w, h, BufferedImage.TYPE_INT_RGB);
+        Random rand = new Random();
+        Graphics2D g2 = image.createGraphics();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
+        Color[] colors = new Color[5];
+        Color[] colorSpaces = new Color[] { Color.WHITE, Color.CYAN,
+                Color.GRAY, Color.LIGHT_GRAY, Color.MAGENTA, Color.ORANGE,
+                Color.PINK, Color.YELLOW };
+        float[] fractions = new float[colors.length];
+        for(int i = 0; i &lt; colors.length; i++){
+            colors[i] = colorSpaces[rand.nextInt(colorSpaces.length)];
+            fractions[i] = rand.nextFloat();
+        }
+        Arrays.sort(fractions);
+
+        g2.setColor(Color.GRAY);// 设置边框色
+        g2.fillRect(0, 0, w, h);
+
+        Color c = getRandColor(200, 250);
+        g2.setColor(c);// 设置背景色
+        g2.fillRect(0, 2, w, h-4);
+
+        //绘制干扰线
+        Random random = new Random();
+        g2.setColor(getRandColor(160, 200));// 设置线条的颜色
+        for (int i = 0; i &lt; 20; i++) {
+            int x = random.nextInt(w - 1);
+            int y = random.nextInt(h - 1);
+            int xl = random.nextInt(6) + 1;
+            int yl = random.nextInt(12) + 1;
+            g2.drawLine(x, y, x + xl + 40, y + yl + 20);
+        }
+
+        // 添加噪点
+        float yawpRate = 0.05f;// 噪声率
+        int area = (int) (yawpRate * w * h);
+        for (int i = 0; i &lt; area; i++) {
+            int x = random.nextInt(w);
+            int y = random.nextInt(h);
+            int rgb = getRandomIntColor();
+            image.setRGB(x, y, rgb);
+        }
+
+        shear(g2, w, h, c);// 使图片扭曲
+
+        g2.setColor(getRandColor(100, 160));
+        int fontSize = h-4;
+        Font font = new Font("Algerian", Font.ITALIC, fontSize);
+        g2.setFont(font);
+        char[] chars = code.toCharArray();
+        for(int i = 0; i &lt; verifySize; i++){
+            AffineTransform affine = new AffineTransform();
+            affine.setToRotation(Math.PI / 4 * rand.nextDouble() * (rand.nextBoolean() ? 1 : -1), (w / verifySize) * i + fontSize/2, h/2);
+            g2.setTransform(affine);
+            g2.drawChars(chars, i, 1, ((w-10) / verifySize) * i + 5, h/2 + fontSize/2 - 10);
+        }
+
+        g2.dispose();
+        ImageIO.write(image, "jpg", os);
+    }
+
+    private static Color getRandColor(int fc, int bc) {
+        if (fc &gt; 255)
+            fc = 255;
+        if (bc &gt; 255)
+            bc = 255;
+        int r = fc + random.nextInt(bc - fc);
+        int g = fc + random.nextInt(bc - fc);
+        int b = fc + random.nextInt(bc - fc);
+        return new Color(r, g, b);
+    }
+
+    private static int getRandomIntColor() {
+        int[] rgb = getRandomRgb();
+        int color = 0;
+        for (int c : rgb) {
+            color = color &lt;&lt; 8;
+            color = color | c;
+        }
+        return color;
+    }
+
+    private static int[] getRandomRgb() {
+        int[] rgb = new int[3];
+        for (int i = 0; i &lt; 3; i++) {
+            rgb[i] = random.nextInt(255);
+        }
+        return rgb;
+    }
+
+    private static void shear(Graphics g, int w1, int h1, Color color) {
+        shearX(g, w1, h1, color);
+        shearY(g, w1, h1, color);
+    }
+
+    private static void shearX(Graphics g, int w1, int h1, Color color) {
+
+        int period = random.nextInt(2);
+
+        boolean borderGap = true;
+        int frames = 1;
+        int phase = random.nextInt(2);
+
+        for (int i = 0; i &lt; h1; i++) {
+            double d = (double) (period &gt;&gt; 1)
+                    * Math.sin((double) i / (double) period
+                    + (6.2831853071795862D * (double) phase)
+                    / (double) frames);
+            g.copyArea(0, i, w1, 1, (int) d, 0);
+            if (borderGap) {
+                g.setColor(color);
+                g.drawLine((int) d, i, 0, i);
+                g.drawLine((int) d + w1, i, w1, i);
+            }
+        }
+
+    }
+
+    private static void shearY(Graphics g, int w1, int h1, Color color) {
+
+        int period = random.nextInt(40) + 10; // 50;
+
+        boolean borderGap = true;
+        int frames = 20;
+        int phase = 7;
+        for (int i = 0; i &lt; w1; i++) {
+            double d = (double) (period &gt;&gt; 1)
+                    * Math.sin((double) i / (double) period
+                    + (6.2831853071795862D * (double) phase)
+                    / (double) frames);
+            g.copyArea(i, 0, 1, h1, 0, (int) d);
+            if (borderGap) {
+                g.setColor(color);
+                g.drawLine(i, (int) d, i, 0);
+                g.drawLine(i, (int) d + h1, i, h1);
+            }
+
+        }
+
+    }
+    public static void main(String[] args) throws IOException{
+        File dir = new File("F:/verifies");
+        int w = 200, h = 80;
+        for(int i = 0; i &lt; 50; i++){
+            String verifyCode = generateVerifyCode(4);
+            File file = new File(dir, verifyCode + ".jpg");
+            outputImage(w, h, file, verifyCode);
+        }
+    }
+</code></pre><p data-anchor-id="ca8o">}</p><div class="md-section-divider"></div><h3 data-anchor-id="uyp2" id="上面就是一个验证码生成器的源代码找那个要的地方都已经注释可以看懂">上面就是一个验证码生成器的源代码，找那个要的地方都已经注释可以看懂。</h3><div class="md-section-divider"></div><h3 data-anchor-id="88ru" id="然后有了上面的验证码生成器我们就可以直接调用写一个servlet在进行配置">然后有了上面的验证码生成器，我们就可以直接调用，写一个servlet在进行配置</h3><pre data-anchor-id="873s"><code>public class VerifyImage extends HttpServlet {
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    resp.setHeader("Pragma","No-catch");
+    resp.setHeader("Catch-control","no-catch");
+    resp.setDateHeader("Expires",0);
+    resp.setContentType("image/jpeg");
+    HttpSession session = req.getSession(true);
+    String code = VerifyCodeUtils.generateVerifyCode(4);
+    session.setAttribute("vcode",code);
+    VerifyCodeUtils.outputImage(100,30,resp.getOutputStream(),code);
+}
+</code></pre><p data-anchor-id="f5z4">} <br>
+可以看到我们是用了session传输的验证码命名为vcode。 <br>
+然后我们就可以在登陆页面来链接这个serlvet。</p><div class="md-section-divider"></div><h3 data-anchor-id="zcrw" id="下面是我的前台登陆页面的jsp的源代码">下面是我的前台登陆页面的jsp的源代码：</h3><pre data-anchor-id="h0iw"><code>&lt;form&gt;
+        &lt;table&gt;
+            &lt;tr class="ding"&gt;
+                &lt;td&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;账户/用户名：&lt;/td&gt;
+                &lt;td&gt;&lt;input type="text" id="username" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;密码：&lt;/td&gt;
+                &lt;td&gt;&lt;input type="password" id="password"  /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;&lt;input type="text" placeholder="验证码" id="yanzhengma"&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;image src="/VerifyImage" width="100" height="30" onclick="this.src='/VerifyImage?m='+new Date().toTimeString()" /&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt; &lt;a href="#"&gt;注册&lt;/a&gt;&lt;/td&gt;
+                &lt;td&gt; &lt;a href="#" onclick="login()"&gt;登录&lt;/a&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+        &lt;br /&gt;
+
+    &lt;/form&gt;
+</code></pre><div class="md-section-divider"></div><h3 data-anchor-id="9twy" id="可以看到只有账号密码和验证码">可以看到只有账号密码和验证码</h3><p data-anchor-id="qb5m">这一行代码就是生成验证码的图片 <br>
+<code>&lt;td&gt;&lt;image src="/VerifyImage" width="100" height="30" onclick="this.src='/VerifyImage?m='+new Date().toTimeString()" /&gt;&lt;/td&gt;</code></p><p data-anchor-id="k5fs">我们登陆的时候其实是判断验证码是否正确然后再跑判断账号和密码的,所以我们要先获取用户输入的验证码的值然后再传到服务器区进行比对</p><pre data-anchor-id="johp"><code>$.get("/yanzhengma",{"vcode":yanzhengma},function (txt){
+            $.alert(txt.message);
+        var panduan = txt.message;
+        if (panduan=="验证码错误"){
+            return;
+        }
+    },"json")
+</code></pre><p data-anchor-id="qnk2">通过ajax异步传输将用户输入的验证码传送的服务器，然后在接收服务器返回的panduan的值进行判断就好了。 <br>
+从上面的代码中可以看到如果返回的panduan的值为“验证码错误”，那么我们将会return。</p><div class="md-section-divider"></div><h3 data-anchor-id="uhfh" id="判断验证码的正确或错误">判断验证码的正确或错误：</h3><pre data-anchor-id="g4p1"><code>public class YanZhengMa extends HttpServlet {
+@Override
+protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String vcode = req.getParameter("vcode");
+    HttpSession session = req.getSession(true);
+    String sessioncode = (String) session.getAttribute("vcode");
+    System.out.println("用户提交"+vcode.toUpperCase()+"------sessioncode="+sessioncode);
+    String vode = vcode.toUpperCase();
+    if(vode.equals(sessioncode)){
+        resp.setContentType("text/json;charset=UTF-8");
+        resp.getWriter().write("{\"message\":\"验证码正确\"}");
+    }else{
+        resp.setContentType("text/json;charset=UTF-8");
+        resp.getWriter().write("{\"message\":\"验证码错误\"}");
+    }
+}
+</code></pre><p data-anchor-id="48de">}</p><p data-anchor-id="6z1h">通过上面这个servlet我们就可以接收到用户输入的值，通过session.getAttribute("vcode")获取到验证码生成的值，和用户输入的值进行比较，在返回一个message值给登陆jsp就可以简单的判断验证码了。</p></div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>java 面向对象中的继承</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="t99w" id="java-面向对象中的继承">java 面向对象中的继承</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="qg8b" id="java中类存在继承关系子类可以继承父类中所有除provate关键词修饰的方法和static修饰的变量">Java中类存在继承关系，子类可以继承父类中所有除provate关键词修饰的方法和static修饰的变量；</h3><div class="md-section-divider"></div><h4 data-anchor-id="9ys3" id="怎样继承">怎样继承：</h4><p data-anchor-id="sk5c">有两个类 class A 和 class B <br>
+通过extends 继承 <br>
+class B extends A <br>
+这样A就是B的父类B就是A的子类</p><p data-anchor-id="l7p3"><strong><em>java.lang.Object是所有类的父类， <br>
+    Object要么是直接父类要么是间接父类。</em></strong></p><div class="md-section-divider"></div><h3 data-anchor-id="m936" id="注意java中的继承是单继承也就是说一个类只能继承一个父类">注意：Java中的继承是单继承，也就是说一个类只能继承一个父类。</h3><div class="md-section-divider"></div><h3 data-anchor-id="eo8x" id="继承的特点">继承的特点：</h3><ul data-anchor-id="05vr">
+<li>java.lang.Object是所有类的父类， <br>
+Object要么是直接父类要么是间接父类。</li>
+<li>Java只支持单继承,不支持多继承;</li>
+</ul><p data-anchor-id="fqrw"><strong>继承也就是从一般到特殊的情况：</strong></p><p data-anchor-id="x2st">例如，我们有一个大类是手机，这个大类中有三个方法就是 <br>
+1.打电话 <br>
+2发信息 <br>
+3上网 <br>
+这三个功能都是非常大概的，我们知道现在手机功能很全面，所以我们具体到每一个手机的时候需要很多方法，但他们都具有手机一类的三大特征，因而我们可以继承手机大类，然后自己需要什么可以自己在写，这样我们就省去了在写三大方法的代码这样就实现了代码的复用。</p><div class="md-section-divider"></div><h3 data-anchor-id="y1qa" id="子类对象在实例化之前必须首先调用父类中的构造方法之后再调用自身的构造方法">子类对象在实例化之前必须首先调用父类中的构造方法之后再调用自身的构造方法。</h3><div class="md-section-divider"></div><h3 data-anchor-id="onu8" id="子类访问父类">子类访问父类：</h3><ul data-anchor-id="7d6f">
+<li>子类不能直接访问父类的私有成员</li>
+<li>但是子类可以调用父类中的非私有方法来间接访问父类的私有成员。</li>
+<li>Phone类中有私有字段name,Iphone继承Phone</li>
+<li>new IPhone().name; 错！！</li>
+<li>new Iphone().getName 正确。</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="0qow" id="子类可根据自身需要去复写父类中的方法">子类可根据自身需要去复写父类中的方法：</h3><p data-anchor-id="l5rr">主要是以父类为基础，然后添加属于自己的字段和方法。</p><p data-anchor-id="63ul">产生原因： <br>
+当父类中某个方法不适合于子类时,子类出现父类一模一样的方法.</p><ul data-anchor-id="dfzp">
+<li>调用被覆盖的父类方法：使用super.方法名(实参);</li>
+<li>方法覆写时应遵循的原则(一同两小一大)： <br>
+<ul><li>(一同):方法签名必须相同;</li>
+<li>(两小):</li>
+<li><ul><li>子类方法的返回值类型比父类方法的返回值类型更小或相等</li></ul></li>
+<li><ul><li>子类方法声明抛出的异常应比父类方法申明抛出的异常更小或相等</li></ul></li>
+<li>(一大):子类方法的访问权限应比父类方法更大或相等;</li></ul></li>
+</ul></div>
+</body>
+</html>

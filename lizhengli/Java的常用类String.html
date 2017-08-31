@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Java的常用类String</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="xwfj" id="java的常用类string">Java的常用类String</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="q1x5" id="java中常见的的一些类">Java中常见的的一些类：</h3><ul data-anchor-id="su7p">
+<li>String  </li>
+<li>StringBuilder/ StringBuffer</li>
+<li>Math</li>
+<li>Random</li>
+<li>BigInteger/BigDecimal</li>
+<li>Date</li>
+<li>SimpleDateFormat</li>
+<li>Calendar</li>
+<li>System</li>
+<li>正则表达式</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="c6aq" id="string">String</h3><p data-anchor-id="dcov">String类是字符串类，就是表示一连串的字符，要注意的诗<em>String是不可变得一旦创建就不可变知道被销毁</em></p><p data-anchor-id="l17e">示例： String s1="示例"; <br>
+s1就表示值为“示例”的字符串</p><ul data-anchor-id="rww0">
+<li>String s="";就表示创建了一个空的字符串。</li>
+<li>String[] split(String regex)： 把字符串按指定的字符串分隔开。</li>
+<li>String substring(int beginIndex) 返回一个新的字符串，从beginIndex开始截取，它是此字符串的一个子字符串;</li>
+<li>String substring(int beginIndex, int endIndex) 返回一个新字符串，它是此字符串的一个子字符串;[begin,end)</li>
+<li>String toLowerCase() 将此 String 中的所有字符都转换为小写</li>
+<li>String toUpperCase()转成大写</li>
+<li>static String valueOf(基本类型 obj):把基本类型值转成字符串</li>
+<li>String trim() ：忽略字符串前导空白和尾部空白</li>
+<li>char[] toCharArray() 将此字符串转换为一个新的字符数组。</li>
+<li>String(StringBuffer buffer):根据StringBuffer对象来创建String对象；</li>
+<li>String(StringBuilder builder):同上</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="0ode" id="stringbuffer和stringbulider">StringBuffer和StringBulider:</h3><ul data-anchor-id="9u2o">
+<li>StringBuffer：  是线程安全的；</li>
+<li>StringBuilder： 是线程不安全的，性能高点，我们推荐使</li>
+<li>StringBuffer的字符序列是可变的</li>
+<li>StringBuffer  和  String之间的转换； <br>
+<ul><li>String toString() 返回此序列中数据的字符串表示形式。 </li>
+<li>StringBuffer(String str):以指定的字符串创建StringBuffer对象。</li></ul></li>
+</ul><div class="md-section-divider"></div><h2 data-anchor-id="iaps" id="title"> </h2><div class="md-section-divider"></div><h2 data-anchor-id="qzi9" id="title-1"> </h2><p data-anchor-id="tnnc">public StringBuilder()构造一个不带任何字符的StringBuilder对象。  <br>
+StringBuffer(String str) ：构造一个字符串缓冲区，并将其内容初始化为指定的字符串内容。</p></div>
+</body>
+</html>

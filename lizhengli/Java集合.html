@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Java集合</title>
+</head>
+<body>
+<div id="wmd-preview" class="wmd-preview"><div class="md-section-divider"></div><div class="md-section-divider"></div><h1 data-anchor-id="q05k" id="java集合">Java集合</h1><hr><div class="md-section-divider"></div><h3 data-anchor-id="rukt" id="1list接口">1.List接口</h3><div class="md-section-divider"></div><h4 data-anchor-id="9wxo" id="是有序的集合集合中每个元素都有对应的顺序序列list集合可使用重复元素通过索引来访问指定位置的集合元素">是有序的集合，集合中每个元素都有对应的顺序序列。list集合可使用重复元素通过索引来访问指定位置的集合元素。</h4><div class="md-section-divider"></div><h3 data-anchor-id="tt5h" id="title"> </h3><div class="md-section-divider"></div><h4 data-anchor-id="6vy2" id="list集合中的方法">List集合中的方法：</h4><ul data-anchor-id="zdwg">
+<li>void add（int index,Object e）将元素e添加到list集合index处</li>
+<li>Object get(int index)返回集合中index处的元素</li>
+<li>Object remove(int index)删除并返回index处的元素</li>
+<li>Object set(int index,Object e)把集合中index处的元素替换成e对象并返回原位置的元素</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="kup7" id="list集合中的常用类">List集合中的常用类：</h3><ul data-anchor-id="zpvs">
+<li>Vector:线程安全但是速度慢， 已经被ArrayList替代</li>
+<li>ArrayList：线程不安全，但是增删速度快</li>
+<li>LinkedList：链表结构查询速度快（大量数据的插入比ArrayList快）</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="4ycu" id="去除list集合中元素的方式">去除List集合中元素的方式：</h3><ul data-anchor-id="d6jt">
+<li>get（int index）通过脚标获取</li>
+<li>iterator（）通过迭代方式获取迭代器对象</li>
+</ul><div class="md-section-divider"></div><h3 data-anchor-id="owao" id="linkedlist">LinkedList:</h3><p data-anchor-id="3erb">LinkedList实现的deque接口deque接口是Queue接口的子接口</p><p data-anchor-id="pds0">void addFirst()把元素插入到该链表的开头</p><p data-anchor-id="wtm7">void addLast()把元素插入到该链表的队列的末尾</p><p data-anchor-id="mblp">Object getFirst():获取但不 删除队列 第 一个元素；</p><p data-anchor-id="mttj">Object getLast():获取但不 删除队列 最后 一个元素；</p><p data-anchor-id="55u0">boolean offerFirst(Object e):将指定的元素插 入到该双向队列 的开头；</p><p data-anchor-id="g2ez">boolean offerLast(Object e):将指定元素插 入到双向队列 的末尾；</p><p data-anchor-id="1qvi">Object removeFirst():删除第 一个元素</p><p data-anchor-id="8u9i">Object removeLast():删除最后 一个元素</p><p data-anchor-id="xhmr">Object peekFirst():获取但不 删除队列 第 一个元素，如队列 为null,返回null;</p><p data-anchor-id="w4vg">Object peekLast():获取但不 删除队列 最后 一个元素，如队列 为null,返回null;</p><p data-anchor-id="jhsv">Object pollFirst():获取并删除队列 第 一个元素，如队列 为null,返回null;</p><p data-anchor-id="4h4p">Object pollLast():获取并删除队列 最后 一个元素，如队列 为null,返回null;</p><p data-anchor-id="1suh">Object  pop():从此双端队列 所表示的堆栈中弹出 一个元素。</p><p data-anchor-id="5kw9">void push(Object e):将e推 入进该队列 栈中。</p><p data-anchor-id="bca0">Object removeFirst():获取并删除队列 第 一个元素。</p><p data-anchor-id="b30r">Object removeFirstOccurrence(Object o):删除队列 第 一次出现的o元素；</p><p data-anchor-id="4gm9">removeLast():获取并删除队列 最后 一个元素；</p><p data-anchor-id="lkdt">removeLastOccurrence(Object o):删除队列 中最后 一次出现的o元素；</p><div class="md-section-divider"></div><h3 data-anchor-id="rzlb" id="2map接口">2.Map接口</h3><p data-anchor-id="11gh">映射关系，Map集合 里 存在两组值， 一组是key, 一组是value。 <br>
+也就是以键值对的方式来存储元素。 <br>
+Map.Entry是Map接 口的内部接 口，专 门 用来保存key-value内容</p><div class="md-section-divider"></div><h3 data-anchor-id="d8es" id="map常-用-方法">Map常 用 方法</h3><p data-anchor-id="in5x">1.void clear():删除该Map对象中所有的key-value对。也就是清理 该集合 <br>
+2.boolean containsKey(Object key):查询Map中是否包含指定的key； <br>
+3.boolean containsValue(Object  value):查询Map中是否包含 至少 一个value; <br>
+4.Set entrySet():返回Map所包含的key-value对所组成的Set集合，每个集合元素都是Map.Entry对象(Entry是Map内部类) <br>
+5.Object get(Object key):返回指定key所对应的value,若此Map中不 包含该key,返回null; boolean isEmpty():判断Map集合是否为空； <br>
+6.Set keySet():返回该Map中所有key所组成的Set集合 <br>
+7.Object put(Object key,Object value):添加 一个key-value对，若Map中已有与key相等的key-value对，则新的key-value对覆盖原来的key-value对 <br>
+8.Collection values():返回Map 里 所有value组成的Collection</p><div class="md-section-divider"></div><h3 data-anchor-id="2sct" id="3queue">3.Queue</h3></div>
+</body>
+</html>
